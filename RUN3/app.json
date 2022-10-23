@@ -17,7 +17,10 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyAQyLN45x-8vr4l1uI0A45NC0AFtTM9hXE"
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -26,7 +29,8 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "build": { "babel": { "include": ["@ui-kitten/components"] } }
     }
   }
 }
