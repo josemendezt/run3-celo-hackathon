@@ -7,6 +7,7 @@ import { Spinner, Button } from '@ui-kitten/components'
 import { BuildForm } from './buildForm'
 import { styles } from './style'
 import { useRun3T } from '../../hooks/useRUN3T'
+import { useIsFocused } from '@react-navigation/native'
 
 export default function Builder() {
   const [routeCoords, setRouteCoords] = useState<(Location.LocationObjectCoords & { id: number })[]>([])
@@ -16,8 +17,9 @@ export default function Builder() {
   const [markerIndex, setMarkerIndex] = useState<number>(0)
   const [currentDistance, setCurrentDistance] = useState<number>(0)
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const isFocused = useIsFocused()
 
-  const { run3TBalance } = useRun3T()
+  const { run3TBalance, getRun3TBalance } = useRun3T()
   const addCoordToRoute = async () => {
     const currentCoord = await Location.getCurrentPositionAsync({ accuracy: Location.LocationAccuracy.Balanced })
     const index = routeCoords.findIndex(
@@ -29,6 +31,12 @@ export default function Builder() {
   const closeForm = () => {
     setShowBuildForm(false)
   }
+
+  useEffect(() => {
+    if (!run3TBalance) {
+      getRun3TBalance()
+    }
+  }, [run3TBalance, isFocused])
 
   useEffect(() => {
     let totalDistance = 0

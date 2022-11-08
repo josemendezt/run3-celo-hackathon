@@ -16,6 +16,8 @@ import { colors, globalStyles } from './src/utils/globalStyles'
 import MoveToBuild from './src/Components/MoveToBuild'
 import Builder from './src/Components/MoveToBuild/builder'
 import RouteDetail from './src/Components/MoveToBuild/routeDetail'
+import Ecostory from './src/Components/MoveToBuild/ecostory'
+import EcoStoryForm from './src/Components/MoveToBuild/ecoStoryForm'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -70,6 +72,8 @@ export default function App() {
             <Stack.Screen name="home" component={HomeApp} options={{ headerTitle: (props) => <Header /> }} />
             <Stack.Screen name="builder" component={Builder} options={{ headerTitle: (props) => <Header /> }} />
             <Stack.Screen name="routeDetail" component={RouteDetail} options={{ headerTitle: (props) => <Header /> }} />
+            <Stack.Screen name="ecostory" component={Ecostory} options={{ headerShown: false }} />
+            <Stack.Screen name="ecoStoryForm" component={EcoStoryForm} options={{ headerShown: false }} />
           </Stack.Navigator>
         </NavigationContainer>
       </WalletProvider>

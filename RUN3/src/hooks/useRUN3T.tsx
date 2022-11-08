@@ -15,6 +15,17 @@ export const useRun3T = () => {
   const { walletWithProvider, provider } = useWalletProvider()
   const { routeAddress } = useRoute()
 
+  const getRun3TBalance = async () => {
+    try {
+      const run3tContract = new ethers.Contract(run3TAddress, abi, walletWithProvider)
+      const balance = await run3tContract?.balanceOf(walletWithProvider.address)
+      const formatBalance = ethers.utils.formatEther(balance)
+      setRun3TBalance(formatBalance)
+    } catch (e) {
+      console.log('Error', e)
+    }
+  }
+
   useEffect(() => {
     const getRun3TContract = async () => {
       const provider = new CeloProvider(NET_PROVIDER)
@@ -25,19 +36,7 @@ export const useRun3T = () => {
       setRun3Contract(run3tContract)
     }
 
-    const getRun3TBalance = async () => {
-      try {
-        const run3tContract = new ethers.Contract(run3TAddress, abi, walletWithProvider)
-        const balance = await run3tContract?.balanceOf(walletWithProvider.address)
-        const formatBalance = ethers.utils.formatEther(balance)
-        setRun3TBalance(formatBalance)
-      } catch (e) {
-        console.log('Error', e)
-      }
-    }
-
     getRun3TContract()
-    getRun3TBalance()
   }, [])
 
   const getRun3TokenBalanceByOwner = async (address: string) => {
@@ -72,7 +71,6 @@ export const useRun3T = () => {
         const mintTxSigned = await signer.signTransaction(mintTxUnsigned)
         const submittedTx = await provider.sendTransaction(mintTxSigned)
         const mintReceipt = await submittedTx.wait()
-
         if (mintReceipt.status === 0) throw new Error('Mint transaction failed')
       }
     } catch (e) {
@@ -80,5 +78,13 @@ export const useRun3T = () => {
     }
   }
 
-  return { mintRun3Token, getRun3TokenBalanceByOwner, abi, run3TAddress, run3TBalance, transferRun3TtoContract }
+  return {
+    mintRun3Token,
+    getRun3TokenBalanceByOwner,
+    abi,
+    run3TAddress,
+    run3TBalance,
+    transferRun3TtoContract,
+    getRun3TBalance,
+  }
 }

@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
   btntFloat: {
     width: 250,
     marginBottom: 22,
-    opacity: 0.8,
+    opacity: 0.9,
   },
   floatingBox: {
     position: 'absolute',
@@ -42,9 +42,40 @@ export const styles = StyleSheet.create({
     zIndex: 2,
     marginTop: 8,
     backgroundColor: colors.secondary,
-    opacity: 0.8,
+    opacity: 0.9,
     borderRadius: 8,
     minWidth: Dimensions.get('window').width - 100,
+  },
+  carouselDes: {
+    fontSize: 16,
+    fontWeight: '500',
+    marginBottom: 20,
+    marginTop: 8,
+  },
+  carouselUser: {
+    color: 'gray',
+  },
+  carousel: {
+    zIndex: 5,
+    position: 'absolute',
+    justifyContent: 'center',
+  },
+  carouselItem: {
+    backgroundColor: colors.white,
+    width: Dimensions.get('window').width - 100,
+    minHeight: 450,
+    borderRadius: 10,
+  },
+  carouselImg: {
+    height: 300,
+    width: '100%',
+    borderRadius: 10,
+    resizeMode: 'contain',
+  },
+  floatingBoxEcostory: {
+    position: 'absolute',
+    top: 0,
+    marginTop: 16,
   },
   boxText: {
     color: '#fff',
@@ -106,5 +137,40 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#fff',
     textAlign: 'center',
+  },
+  flex1: {
+    flex: 1,
+  },
+  cameraIcons: { color: '#fff', fontSize: 40 },
+  cameraButtons: {
+    alignSelf: 'flex-end',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+  },
+  buttonsCameraCont: { flex: 1, flexDirection: 'row', justifyContent: 'space-between', margin: 30 },
+  actionBtns: {
+    color: '#fff',
+    fontSize: 20,
+    borderColor: '#fff',
+    borderWidth: 2,
+    width: 120,
+    borderRadius: 18,
+    textAlign: 'center',
+    paddingVertical: 4,
+  },
+  postImage: {
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width,
+    resizeMode: 'cover',
+  },
+  postBtn: {
+    width: 90,
+    height: 20,
+    borderRadius: 50,
+  },
+  postBtnCont: {
+    flexDirection: 'row',
+    marginRight: 12,
+    justifyContent: 'space-between',
   },
 })

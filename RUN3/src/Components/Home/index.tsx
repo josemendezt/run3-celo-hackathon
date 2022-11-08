@@ -15,6 +15,7 @@ import { Avatar, Button, Divider, ListItem, Tooltip } from '@ui-kitten/component
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faWallet, faArrowLeft, faRefresh } from '@fortawesome/free-solid-svg-icons'
 import * as Clipboard from 'expo-clipboard'
+import { useIsFocused } from '@react-navigation/native'
 import WebView from 'react-native-webview'
 import { useRun3T } from '../../hooks'
 import { useWatch } from '../../hooks/useWatch'
@@ -22,8 +23,8 @@ import { useWatch } from '../../hooks/useWatch'
 export default function Home() {
   const { walletWithProvider } = useWalletProvider()
   const { getWatchDataByUser, watchData } = useWatch()
-  const { mintRun3Token, run3TBalance } = useRun3T()
-
+  const { mintRun3Token, run3TBalance, getRun3TBalance } = useRun3T()
+  const isFocused = useIsFocused()
   const [tooltipVisible, setTooltipVisible] = useState({
     type: '',
     message: '',
@@ -47,11 +48,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    getWatchDataByUser()
-  }, [])
-
-  useEffect(() => {
-    if (shouldRefresh) {
+    if (shouldRefresh || isFocused) {
       const getBalance = async () => {
         const value = await walletWithProvider.getBalance()
         const balanceInEth = ethers.utils.formatEther(value)
@@ -59,9 +56,11 @@ export default function Home() {
       }
 
       getBalance()
+      getRun3TBalance()
+      getWatchDataByUser()
       setShouldRefresh(false)
     }
-  }, [shouldRefresh])
+  }, [shouldRefresh, isFocused])
 
   if (showWebView)
     return (
