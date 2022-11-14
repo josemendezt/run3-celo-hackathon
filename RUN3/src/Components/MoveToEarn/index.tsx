@@ -6,8 +6,9 @@ import 'react-native-get-random-values'
 import '@ethersproject/shims'
 // Import ethers now
 import { ethers } from 'ethers'
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, Platform } from 'react-native'
 import { Pedometer } from 'expo-sensors'
+import { request, PERMISSIONS, RESULTS } from 'react-native-permissions'
 import { colors, globalStyles } from '../../utils/globalStyles'
 import { AnimatedCircularProgress } from 'react-native-circular-progress'
 import { styles } from './style'
@@ -122,6 +123,22 @@ export default function MoveToEarn() {
 
   useEffect(() => {
     subscribe()
+
+    // Unfortunately, this does not work as it should, is not asking for Android permission :/
+    if (Platform.OS === 'android') {
+      alert('Pedometer in Android might not work, sorry for the inconvenience :( ')
+      Pedometer.requestPermissionsAsync()
+        .then((result) => {
+          if (result.granted) {
+            console.log('Pedometer working')
+          } else {
+            alert('The permission for the pedometer has not been requested or it was denied')
+          }
+        })
+        .catch((error) => {
+          alert('Something went wrong, please close the app and try again')
+        })
+    }
 
     return () => {
       unsubscribe()

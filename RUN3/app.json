@@ -18,10 +18,14 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "infoPlist": {
+        "NSMotionUsageDescription": "Allow RUN3 access to your device"
+      },
       "supportsTablet": true,
       "config": {
         "googleMapsApiKey": "AIzaSyAQyLN45x-8vr4l1uI0A45NC0AFtTM9hXE"
-      }
+      },
+      "bundleIdentifier": "com.josemmt.run3celo"
     },
     "android": {
       "adaptiveIcon": {
